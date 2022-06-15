@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  background-image: linear-gradient(90deg, #56c0e7, #239ad2);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body h1 {
+  color: yellow;
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 10px;
+}
+
+.weather-seacrh {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2.5rem auto;
+}
+#weather-input,
+.btn-search {
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  font-size: 1.1rem;
+}
+#weather-input:focus {
+  outline: none;
+}
+.btn-search {
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+}
+.weather-container {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 2rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+.weather-box {
+  width: 300px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 7px;
+  margin: 10px;
+  text-align: center;
+}
+
+.city-name,
+.degree,
+.icon,
+.weather-type {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #333;
+  margin: 5px 20px;
+}
+
+.weather-box h4 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
