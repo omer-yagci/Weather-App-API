@@ -1,3 +1,5 @@
+// ! AXİOS SOLUTİON
+
 const ınputValue = document.querySelector("#weather-input");
 const button = document.querySelector(".btn-search");
 const container = document.querySelector(".weather-container");
@@ -10,30 +12,28 @@ button.addEventListener("click", (event) => {
     ) {
       alert(ınputValue.value + " already written data");
     } else {
+      const apiKey = "07ccc6c8229f822f8f5f8dbbc0bfbc92";
       try {
-        const key = "07ccc6c8229f822f8f5f8dbbc0bfbc92";
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${ınputValue.value}&units=metric&APPID=${key}`;
-        let res = await fetch(url);
-        let data = await res.json();
-        // console.log(data);
-        createWeaterData(data);
-      } catch (error) {
-        alert(error);
-      }
-    }
-  };
+        // ? Using Axios Get method
+        const weatherApıAxios = await axios({
+          url: `https://api.openweathermap.org/data/2.5/weather?q=${ınputValue.value}&units=metric&APPID=${apiKey}`,
+          method: "get",
+        });
 
-  const createWeaterData = (data) => {
-    let { name } = data;
-    let { temp } = data.main;
-    let { icon, description } = data.weather[0];
-    let { country } = data.sys;
-    const weatherEl = document.createElement("div");
-    weatherEl.classList.add("weather-box");
+        //!! Destructuring api from data
+        let { name } = weatherApıAxios.data;
+        let { temp } = weatherApıAxios.data.main;
+        let { icon, description } = weatherApıAxios.data.weather[0];
+        let { country } = weatherApıAxios.data.sys;
 
-    weatherEl.innerHTML = `
-    <h4 class="city-name">
-         ${name} <span> <sup>${country}</sup></span>
+        const weatherEl = document.createElement("div");
+        weatherEl.classList.add("weather-box");
+
+        weatherEl.innerHTML = `
+        <h4 class="city-name">
+        ${
+          name.includes("Province") ? name.replace("Province", " ") : name
+        } <span class="orange"> <sup>${country}</sup></span>
         </h4>
         <p class="degree">
         ${temp.toFixed()} <span><sup>°C</sup></span>
@@ -43,10 +43,68 @@ button.addEventListener("click", (event) => {
           description.toLowerCase().charAt(0).toUpperCase() +
           description.slice(1)
         }</p>
-    `;
-    container.appendChild(weatherEl);
-    ınputValue.value = "";
+            `;
+        container.appendChild(weatherEl);
+        ınputValue.value = "";
+      } catch (error) {
+        alert(error);
+      }
+    }
   };
 
   getWeatherData();
 });
+
+// ! FETTCH SOLUTİONS
+// const ınputValue = document.querySelector("#weather-input");
+// const button = document.querySelector(".btn-search");
+// const container = document.querySelector(".weather-container");
+
+// button.addEventListener("click", (event) => {
+//   event.preventDefault();
+//   const getWeatherData = async () => {
+//     if (
+//       container.innerHTML.toLowerCase().includes(ınputValue.value.toLowerCase())
+//     ) {
+//       alert(ınputValue.value + " already written data");
+//     } else {
+//       try {
+//         const key = "07ccc6c8229f822f8f5f8dbbc0bfbc92";
+//         const url = `https://api.openweathermap.org/data/2.5/weather?q=${ınputValue.value}&units=metric&APPID=${key}`;
+//         let res = await fetch(url);
+//         let data = await res.json();
+//         // console.log(data);
+//         createWeaterData(data);
+//       } catch (error) {
+//         alert(error);
+//       }
+//     }
+//   };
+
+//   const createWeaterData = (data) => {
+//     let { name } = data;
+//     let { temp } = data.main;
+//     let { icon, description } = data.weather[0];
+//     let { country } = data.sys;
+//     const weatherEl = document.createElement("div");
+//     weatherEl.classList.add("weather-box");
+
+//     weatherEl.innerHTML = `
+//     <h4 class="city-name">
+//          ${name} <span class="orange"> <sup>${country}</sup></span>
+//         </h4>
+//         <p class="degree">
+//         ${temp.toFixed()} <span><sup>°C</sup></span>
+//         </p>
+//         <img src="http://openweathermap.org/img/wn/${icon}@2x.png" </img>
+//         <p class="weather-type">${
+//           description.toLowerCase().charAt(0).toUpperCase() +
+//           description.slice(1)
+//         }</p>
+//     `;
+//     container.appendChild(weatherEl);
+//     ınputValue.value = "";
+//   };
+
+//   getWeatherData();
+// });
